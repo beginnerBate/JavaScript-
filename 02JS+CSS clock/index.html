@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS + CSS Clock</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="clock background">
+      <div class="clock-face">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+      </div>
+    </div>
+</body>
+  <script>
+   //实时获取时间
+   var time = {}
+   function getCurrentTime() {
+    var hour = new Date().getHours();
+    var min = new Date().getMinutes();
+    var second = new Date().getSeconds();
+    time =  {
+        hour:(hour - 12)>0 ? hour-12: hour,
+        min:min,
+        second:second
+    }
+    console.log(time)
+    var hourDeg = 90+time.hour * 30 + time.min/60 + time.second/360;
+    var minDeg = (90+ time.min * 6) + time.second/60
+    var secondDeg = 90+ time.second * 6
+    setDeg(hourDeg,minDeg,secondDeg)
+    console.log(hourDeg)
+   }
+   function setDeg(hourDeg,minDeg,secondDeg){
+       var hourHand = document.querySelector('.hour-hand');
+       var minHand = document.querySelector('.min-hand');
+       var secondHand = document.querySelector('.second-hand');
+       secondHand.style.transform = `rotate(${secondDeg}deg)`;
+       minHand.style.transform = `rotate(${minDeg}deg)`;
+       hourHand.style.transform = `rotate(${hourDeg}deg)`;
+      
+   }
+   setInterval(getCurrentTime,1000)
+   
+  var clock = {
+    init:function init(){
+      getCurrentTime()
+      var hourHand = document.querySelector('.hour-hand');
+       var minHand = document.querySelector('.min-hand');
+       var secondHand = document.querySelector('.second-hand');
+       hourHand.style.transform = `rotate(2turn)`
+       hourHand.style.transition = `transform 1.5s cubic-bezier(0.075, 0.82, 0.165, 1)`
+    }
+  }
+  clock.init();
+
+
+  </script>
+</html>
