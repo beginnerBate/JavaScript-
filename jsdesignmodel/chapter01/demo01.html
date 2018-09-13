@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>第一章 面向对象编程</title>
+</head>
+<body>
+  <!-- 表单验证 -->
+  <form>
+    <div>
+      <label for="name">name</label><input type="text" id="name">
+    </div>
+    <div>
+      <label for="email">email</label><input type="text" id="email">
+    </div>
+    <div>
+      <label for="password">password</label><input type="text" id="password">
+    </div>
+    <div><button type="submit" onclick="toCheckout()">提交</button></div>
+  </form>
+</body>
+<script src="./CheckObject.js"></script>
+<script src="./class.js"></script>
+<script src="./extends.js"></script>
+<script>
+  function toCheckout() {
+    event.preventDefault()
+    var eleName = document.getElementById('name')
+    var eleEmail = document.getElementById('email')
+    var elePassword = document.getElementById('password')
+    var a = new CheckObject()
+    a.checkName(eleName.value).checkEmail(eleEmail.value)
+  }
+</script>
+</html>

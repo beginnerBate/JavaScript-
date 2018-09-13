@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>input 实时监控输入两位小数</title>
+</head>
+<body>
+  <div id="show"></div>
+  <input type="text" id="txt" value="" maxlength='100'/>
+</body>
+<script>
+  window.onload = function () {
+    
+    var otxt = document.getElementById('txt')
+    var oshow = document.getElementById('show')
+    if (document.all){
+      otxt.onpropertychange = function (){
+      var xs = otxt.value.split('.') || []
+        if(xs.length >1){
+          otxt.maxLength = xs[0].length + 3
+        }
+        oshow.innerHTML = otxt.value  
+      }
+    }else{
+      otxt.oninput = function (){
+        count = count + 1
+        oshow.innerHTML = otxt.value
+        var xs = otxt.value.split('.') || []
+        if(xs.length >1){
+          otxt.maxLength = xs[0].length + 3
+        }
+      }
+    }
+  }
+</script>
+</html>

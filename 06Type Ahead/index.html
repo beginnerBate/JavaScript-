@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Type Ahead</title>
+  <link rel="stylesheet" href="css.css">
+</head>
+<body>
+  <form class="search-form">
+    <input type="text" class="search" placeholder="诗句 诗名 诗人 ">
+    <ul class="suggestions">
+      <li>输入诗词，找一首诗</li>
+      <li>ffff</li>
+    </ul>
+  </form>
+</body>
+<script>
+  const endpoint = 'https://gist.githubusercontent.com/soyaine/81399bb2b24ca1bb5313e1985533c640/raw/bdf7df2cbcf70706c4a5e51a7dfb8c933ed78878/TangPoetry.json'
+  let listArr = []
+  // fetch
+  fetch(endpoint)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    listArr=myJson
+  });
+  // 匹配函数
+  function findMatches(wordToMatch, listArr) {
+    return listArr.filter(function(val){
+      // 正则找出匹配的诗句
+      var regex = new RegExp(wordToMatch,'gi')
+      var autor = val.detail_author.join('')
+      return val.detail_text.match(regex) || val.title.match(regex) || autor.match(regex)
+    })
+  }
+
+  function displayMatches () {
+    var matches = findMatches(this.value, listArr)
+    var regex = new RegExp(this.value,'gi')
+    var that =this
+    var html = matches.map(function(val){
+      var text = val.detail_text.replace(regex, `<span class="hl">${ that.value }</span>`)
+      var title = val.title.replace(regex, `<span class="hl">${ that.value }</span>`)
+      return  `
+				<li>
+					<span class="poet">${ text }</span>
+					<span class="title">${ title } - ${ val.detail_author[0] }</span>
+				</li>`
+    }).join('')
+    suggestions.innerHTML = html
+  }
+  	
+	const search = document.querySelector('.search');
+	const suggestions = document.querySelector('.suggestions');
+	
+	search.addEventListener('change', displayMatches);
+	search.addEventListener('keyup', displayMatches);
+</script>
+</html>

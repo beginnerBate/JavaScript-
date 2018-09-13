@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>创建多类导航</title>
+</head>
+<body>
+  
+</body>
+<script>
+  // 格式化字符串方法
+  function formateString(str, data) {
+    return str.replace(/\{#(\w+)#\}/g, function(match, key){
+      return typeof data[key] ===  undefined ? '' : data[key]
+    })
+  }
+  var Nav = function (data) {
+    //基础导航样式模板
+    this.item = '<a href="{#href#}" title="title">{#name#}</a>'
+    this.html = ''
+    for(var i = 0, len = data.length; i < len; i++ ) {
+      this.html += formateString(this.item, data[i])
+    }
+    // 返回字符串数据
+    return this.html;
+  }
+</script>
+</html>

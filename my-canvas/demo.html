@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>canvas demo</title>
+  <style>
+    #canvas{
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+  var canvas = document.getElementById('canvas')
+  var context = canvas.getContext('2d')
+  var cx = canvas.width = 400
+  var cy = canvas.height = 400
+
+  // begin drawing circle
+  context.beginPath()
+  context.arc(200, 180, 5, 0, Math.PI * 2, true)
+  context.closePath()
+  context.fillStyle = 'rgb(255,255,255)'
+  context.fill()
+
+  // 开始画一个闭合的弧线
+  context.beginPath()
+  context.arc(200,180,50,Math.PI*0.25,Math.PI*0.75, false)
+  context.closePath()
+  context.fillStyle = 'orange'
+  context.strokeStyle = 'pink'
+  context.fill()
+  context.stroke()
+
+  // 绘制直线
+  context.beginPath()
+  context.moveTo(200, 120)
+  context.lineTo(200, 170)
+
+  context.closePath()
+  // 设置线段属性
+  context.lineWidth = 5
+  context.lineCap = 'round'
+  context.strokeStyle = '#fff'
+  context.stroke()
+
+  // 矩形绘制
+  context.beginPath()
+  context.fillStyle = '#90c'
+  context.fillRect(10, 10, 100, 100)
+  context.strokeStyle = "#90c"
+  // 设置阴影 shadowBlur
+  context.shadowBlur= 20
+  context.shadowColor ='#fff'
+  // 设置渐变
+  var grd = context.createLinearGradient(100,100,100,200)
+  grd.addColorStop(0,'pink')
+  grd.addColorStop(.5,'yellow')
+  grd.addColorStop(1,'green')
+  context.fillStyle = grd
+  context.fillRect(100, 100, 200, 200)
+  context.strokeRect(130, 10, 100,100)
+
+
+
+
+</script>
+</html>
